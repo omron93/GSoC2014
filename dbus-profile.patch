@@ -1,0 +1,36 @@
+--- a/debian/rules
++++ b/debian/rules
+@@ -88,6 +88,11 @@
+ debug_configure_flags += \
+ 		--enable-tests \
+ 		$(NULL)
++else
++common_configure_flags += \
++		--disable-tests \
++		--with-dbus-glib=no \
++		$(NULL)
+ endif
+ 
+ # libdbus doesn't have --with-valgrind=auto yet. We want to enable it
+--- a/debian/control
++++ b/debian/control
+@@ -33,7 +33,7 @@
+                libaudit-dev [linux-any],
+                libcap-ng-dev [linux-any],
+                libexpat-dev,
+-               libdbus-glib-1-dev,
++               libdbus-glib-1-dev <!stage1>,
+                libglib2.0-dev,
+                libselinux1-dev [linux-any],
+                libsystemd-daemon-dev (>= 32) [linux-any],
+@@ -41,8 +41,8 @@
+                libsystemd-login-dev (>= 32) [linux-any],
+                libx11-dev,
+                python (>= 2.6),
+-               python-dbus,
+-               python-gobject,
++               python-dbus <!stage1>,
++               python-gobject <!stage1>,
+                valgrind [amd64 armhf i386 mips mipsel powerpc ppc64 s390x],
+                xmlto,
+                xsltproc
